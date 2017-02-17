@@ -1,0 +1,36 @@
+{
+  "name": "login",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "concurrently": "^3.1.0",
+    "react-scripts": "0.8.5"
+  },
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "async": "^2.1.4",
+    "babel-eslint": "^7.1.1",
+    "body-parser": "^1.15.2",
+    "cassandra-driver": "^3.1.6",
+    "compression": "^1.6.2",
+    "connect": "^3.5.0",
+    "connect-rest": "^2.11.0",
+    "connect-timeout": "^1.8.0",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-alpha.2",
+    "cors": "^2.8.1",
+    "eslint": "^3.12.2",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "sha1": "^1.1.1"
+  },
+  "scripts": {
+    "start": "concurrently \"react-scripts start\" \"babel-node server/server\"",
+    "client": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
