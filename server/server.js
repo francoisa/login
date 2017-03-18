@@ -48,7 +48,7 @@ app.use(restBuilder.getDispatcher(Rest));
 
 restBuilder.buildUpRestAPI(rest);
 
-let port = process.env.SRVPORT || 3000;
+let port = process.env.SRVPORT || 3001;
 let server = http.createServer(app);
 
 server.listen(port, function () {
