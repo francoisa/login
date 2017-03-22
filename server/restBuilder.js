@@ -5,7 +5,6 @@ const assert = require('assert');
 const http = require('http');
 const express = require('express');
 const app = express();
-const DEFAULT_PORT = 3000;
 
 const cassandra = require('cassandra-driver');
 var keyspace ='todolist';
@@ -16,6 +15,7 @@ const client = new cassandra.Client({ contactPoints: [node], keyspace: keyspace 
 
 function buildUpRestAPI(rest) {
   rest.get('/users', function(req, content, cb) {
+    console.log('Executing GET /users');
     client.connect(function (err) {
       if (err) {
         client.shutdown();
@@ -36,6 +36,7 @@ function buildUpRestAPI(rest) {
   });
 
   rest.get('/user/authenticate/:id/:pwd', function(req, content, cb) {
+    console.log('Executing GET /user/authenticate/:id/:pwd');
     client.connect(function (err) {
       if (err) {
         client.shutdown();
@@ -64,6 +65,7 @@ function buildUpRestAPI(rest) {
   });
 
   rest.get('/user/:id', function(req, content, cb) {
+    console.log('Executing GET /user/:id');
     client.connect(function (err) {
       if (err) {
         client.shutdown();
@@ -85,6 +87,7 @@ function buildUpRestAPI(rest) {
   });
 
   rest.put('/user', function(req, content, cb) {
+    console.log('Executing PUT /user');
     client.connect(function (err) {
       if (err) {
         client.shutdown();
@@ -126,6 +129,7 @@ function buildUpRestAPI(rest) {
   });
 
   rest.post('/user', function(req, content, cb) {
+    console.log('Executing POST /user');
     client.connect(function (err) {
       if (err) {
         client.shutdown();
@@ -168,6 +172,7 @@ function buildUpRestAPI(rest) {
   });
 
   rest.del('/user/:id', function(req, content, cb) {
+    console.log('Executing DELETE /user/:id');
     client.connect(function (err) {
       if (err) {
         client.shutdown();

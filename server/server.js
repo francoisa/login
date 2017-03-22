@@ -52,5 +52,5 @@ let port = process.env.SRVPORT || 3001;
 let server = http.createServer(app);
 
 server.listen(port, function () {
-	console.log('Running on http://localhost:' + port)
+	console.log('rest api server running on http://localhost:' + port)
 });

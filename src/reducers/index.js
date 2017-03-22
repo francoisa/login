@@ -1,10 +1,33 @@
+import {
+  LOGIN_USER
+} from '../actions/login';
 import { combineReducers } from 'redux'
 
-function loginReducer(state, action) {
-  state = {...state}
-  return state
+function user(state = {
+  message: "",
+  userData: {}
+}, action){
+
+  switch(action.type){
+    case LOGIN_USER:
+      let message;
+        message=action.loginResponse.message ?
+        action.loginResponse.message :
+        action.loginResponse.length ?
+      "Welcome "+action.loginResponse.map((item,idx)=>{
+      return item.name
+      }).reduce((name)=>{return name})
+      : "Invalid login";
+      return {
+        message: message,
+        timestamp: action.timestamp
+      }
+
+      default:
+        return state
+  }
 }
 
-const reducer = combineReducers({loginReducer})
+const reducer = combineReducers({user})
 
 export default reducer
