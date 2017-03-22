@@ -5,6 +5,8 @@ import store from './store';
 import { login, setLoginDetails } from './actions/login';
 import { Provider, connect } from 'react-redux';
 import DevTools from './devtools';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
 
 class App extends Component {
   componentWillMount(){
@@ -17,11 +19,13 @@ class App extends Component {
   }
   handleSelect(){
     const { dispatch, } = this.props;
+    const username = ReactDOM.findDOMNode(this.refs.username).value
+    const password = ReactDOM.findDOMNode(this.refs.password).value
     dispatch(
       login(
             {
-              username:this.refs.username.getValue(),
-              password:this.refs.password.getValue()
+              username: username,
+              password: password
             }))
   }
 
@@ -50,10 +54,10 @@ class App extends Component {
           <Col xs={12} md={4}>
             <h3>Please log in...!</h3>
           </Col>
-          <Col xs={12}>
+          <Col xs={4} md={4}>
             {this.renderInput()}
           </Col>
-          <Col xs={12}>
+          <Col xs={4} md={4}>
             {this.renderWelcomeMessage()}
           </Col>
         </Row>

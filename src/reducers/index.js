@@ -8,16 +8,15 @@ function user(state = {
   userData: {}
 }, action){
 
-  switch(action.type){
+  switch(action.type) {
     case LOGIN_USER:
-      let message;
-        message=action.loginResponse.message ?
-        action.loginResponse.message :
-        action.loginResponse.length ?
-      "Welcome "+action.loginResponse.map((item,idx)=>{
-      return item.name
-      }).reduce((name)=>{return name})
-      : "Invalid login";
+      let message = "";
+      if (action.loginResponse.result === 'SUCCESS') {
+        message = "Welcome " + action.loginResponse.username;
+      }
+      else {
+        message = "Invalid username/password."
+      }
       return {
         message: message,
         timestamp: action.timestamp

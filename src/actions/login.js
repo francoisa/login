@@ -13,21 +13,17 @@ export function setLoginDetails(json){
 }
 
 export function login(userData){
-
-  const body = { username: userData.username,
-                 password: userData.password };
-
+  const APIKEY = '849b7648-14b8-4154-9ef2-8d1dc4c2b7e9';
   const options = {headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     'Authorization': 'Bearer 1234567890'
   },
-  method: 'post',
-  body: JSON.stringify(body)
+  method: 'get',
   }
 
   return dispatch => {
-    return fetch(`http://reactjsblueprints-useradmin.herokuapp.com/v1/login`, options)
+    return fetch(`/api/authenticate/${userData.username}/${userData.password}?api_key=${APIKEY}`, options)
       .then(response => response.json())
     .then(json => dispatch(setLoginDetails(json)))
   }

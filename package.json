@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "main": "index.js",
+  "proxy": "http://localhost:3001/",
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "concurrently": "^3.4.0",
@@ -12,6 +13,7 @@
   "dependencies": {
     "async": "^2.1.5",
     "body-parser": "^1.17.1",
+    "bootstrap": "^3.3.7",
     "cassandra-driver": "^3.2.0",
     "compression": "^1.6.2",
     "connect": "^3.6.0",
@@ -22,6 +24,7 @@
     "cors": "^2.8.1",
     "express": "^4.15.2",
     "isomorphic-fetch": "^2.2.1",
+    "json-proxy": "^0.9.3",
     "morgan": "^1.8.1",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.8",
