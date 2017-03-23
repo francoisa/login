@@ -23,7 +23,7 @@ export function login(userData){
   }
 
   return dispatch => {
-    return fetch(`/api/authenticate/${userData.username}/${userData.password}?api_key=${APIKEY}`, options)
+    return fetch(`/api/user/authenticate/${userData.username}/${userData.password}?api_key=${APIKEY}`, options)
       .then(response => response.json())
     .then(json => dispatch(setLoginDetails(json)))
   }
