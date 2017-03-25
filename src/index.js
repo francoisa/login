@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Button, FormControl } from 'react-bootstrap';
 import ReactDOM from 'react-dom';
-import store from './store';
-import { login, userChange, pwdChange } from './actions/login';
+import { store } from './store';
+import { login } from './actions/user'
+import { userChange, pwdChange } from './actions/login_input'
 import { Provider, connect } from 'react-redux';
 import DevTools from './devtools';
 import 'bootstrap/dist/css/bootstrap.css';

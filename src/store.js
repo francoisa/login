@@ -5,6 +5,4 @@ import reducer from './reducers'
 
 const configureStore = compose(applyMiddleware(thunk), DevTools.instrument())(createStore)
 
-const store = configureStore(reducer)
-
-export default store
+export const store = configureStore(reducer)

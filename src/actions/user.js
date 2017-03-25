@@ -1,8 +1,5 @@
 import fetch from 'isomorphic-fetch'
-
 export const LOGIN_USER = 'LOGIN_USER'
-export const USER_CHANGE = 'USER_CHANGE'
-export const PWD_CHANGE = 'PWD_CHANGE'
 
 export function setLoginDetails(json){
   const loginData = {
@@ -30,13 +27,3 @@ export function login(user, pwd) {
     .then(json => dispatch(setLoginDetails(json)))
   }
 }
-
-export const userChange = (user='') => ({
-    type: USER_CHANGE,
-    payload: user
-  });
-
-export const pwdChange = (pwd='') => ({
-    type: PWD_CHANGE,
-    payload: pwd
-  });
