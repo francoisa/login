@@ -2,47 +2,35 @@ import React, { Component } from 'react';
 import { Grid, Row, Col, Button, FormControl } from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 import store from './store';
-import { login, setLoginDetails } from './actions/login';
+import { login, userChange, pwdChange } from './actions/login';
 import { Provider, connect } from 'react-redux';
 import DevTools from './devtools';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
 class App extends Component {
-  componentWillMount(){
-    const { dispatch, } = this.props;
-    let storedSessionLogin = sessionStorage.getItem('login');
-    if(storedSessionLogin){
-      dispatch(
-        setLoginDetails(JSON.parse(storedSessionLogin).loginResponse));
-    }
-  }
-  handleSelect(){
-    const { dispatch, } = this.props;
-    const username = ReactDOM.findDOMNode(this.refs.username).value
-    const password = ReactDOM.findDOMNode(this.refs.password).value
-    dispatch(
-      login(
-            {
-              username: username,
-              password: password
-            }))
-  }
-
-  renderWelcomeMessage(){
-    const { user } = this.props
+  renderWelcomeMessage() {
+    const { msg } = this.props
     return (<div>
-      {user.message}
+      {msg}
       </div>);
   }
 
-  renderInput(){
+  renderInput() {
     return (<div>
-      <FormControl type="text" ref="username" placeholder="username" />
+      <FormControl
+        type="text"
+        value={ this.props.user }
+        placeholder="username"
+        onChange={ (e) => this.props.onUserChange(e.target.value) }/>
       <br/>
-      <FormControl type="password" ref="password" placeholder="password" />
+      <FormControl
+        type="password"
+        value={ this.props.pwd }
+        placeholder="password"
+        onChange={ (e) => this.props.onPwdChange(e.target.value) }/>
       <br/>
-      <Button onClick={this.handleSelect.bind(this)}>Log in</Button>
+      <Button onClick={() => this.props.onLogin(this.props.user, this.props.pwd) }>Log in</Button>
     </div>)
   }
 
@@ -71,7 +59,34 @@ function mapStateToProps(state) {
   return {user}
 }
 
-const LoginApp = connect(mapStateToProps)(App);
+const { createClass, PropTypes } = React;
+
+const AppBox = createClass({
+  conextTypes: {
+    store: PropTypes.object
+  },
+  componentDidMount() {
+    this.unsubscribe = store.subscribe( () => this.forceUpdate() )
+  },
+  componentWillUnmount() {
+    this.unsubscribe();
+  },
+  render() {
+    const { user, loginInput } = store.getState();
+    return (
+        <App
+          user={loginInput.user}
+          pwd={loginInput.pwd}
+          msg={user.message}
+          onUserChange={ (user) => this.props.dispatch(userChange(user)) }
+          onPwdChange={ (pwd) => this.props.dispatch(pwdChange(pwd)) }
+          onLogin={ () => this.props.dispatch(login()) }
+        />
+    );
+  }
+})
+
+const LoginApp = connect(mapStateToProps)(AppBox);
 
 class Root extends Component {
   render() {

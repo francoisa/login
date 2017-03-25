@@ -8,7 +8,7 @@ const app = express();
 
 const cassandra = require('cassandra-driver');
 var keyspace ='todolist';
-const DEFAULT_NODE = '192.168.2.10';
+const DEFAULT_NODE = '127.0.0.1';
 const node = process.env.NODE || DEFAULT_NODE;
 const client = new cassandra.Client({ contactPoints: [node], keyspace: keyspace });
 

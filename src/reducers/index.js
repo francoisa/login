@@ -1,32 +1,52 @@
 import {
-  LOGIN_USER
+  USER_CHANGE, PWD_CHANGE, LOGIN_USER
 } from '../actions/login';
 import { combineReducers } from 'redux'
 
+function loginInput(state = { user: "", pwd: "" }, action) {
+  switch(action.type) {
+    case USER_CHANGE:
+      state = {...state, user: action.payload}
+      return state
+    case PWD_CHANGE:
+      state = {...state, pwd: action.payload}
+      return state
+    default:
+      return state;
+    }
+}
+
 function user(state = {
   message: "",
-  userData: {}
-}, action){
+  username: ""
+  }, action) {
 
   switch(action.type) {
     case LOGIN_USER:
-      let message = "";
       if (action.loginResponse.result === 'SUCCESS') {
-        message = "Welcome " + action.loginResponse.username;
+        state = {...state,
+            message : "Welcome " + action.loginResponse.username,
+            username: "",
+            timestamp: action.timestamp
+          }
       }
       else {
-        message = "Invalid username/password."
+        state = {...state,
+            message : "Invalid username/password.",
+            username: "",
+            timestamp: action.timestamp
+          }
       }
-      return {
-        message: message,
+      return {...state,
+        message: "",
+        username: "",
         timestamp: action.timestamp
       }
-
       default:
         return state
   }
 }
 
-const reducer = combineReducers({user})
+const reducer = combineReducers({user, loginInput})
 
 export default reducer

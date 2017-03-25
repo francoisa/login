@@ -19,19 +19,6 @@ let app = connect()
 	.use(bodyParser.urlencoded({ extended: true }))
 	.use(bodyParser.json());
 
-/*
-let app = connect()
-	.use(compression())
-	.use(timeout(2000))
-	.use(cookieParser('secretPass'))
-	.use(cookieSession({
-		name: 'demo.sid',
-		secret: 'secretPass',
-		cookie: { httpOnly: true }
-	}))
-	.use(bodyParser.urlencoded({ extended: true }))
-	.use(bodyParser.json());
-*/
 let options = {
   	context: '/api',
   	logger: { file: 'server.log', level: 'debug' },

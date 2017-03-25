@@ -1,6 +1,8 @@
 import fetch from 'isomorphic-fetch'
 
 export const LOGIN_USER = 'LOGIN_USER'
+export const USER_CHANGE = 'USER_CHANGE'
+export const PWD_CHANGE = 'PWD_CHANGE'
 
 export function setLoginDetails(json){
   const loginData = {
@@ -12,7 +14,7 @@ export function setLoginDetails(json){
   return loginData;
 }
 
-export function login(userData){
+export function login(user, pwd) {
   const APIKEY = '849b7648-14b8-4154-9ef2-8d1dc4c2b7e9';
   const options = {headers: {
     'Accept': 'application/json',
@@ -23,8 +25,18 @@ export function login(userData){
   }
 
   return dispatch => {
-    return fetch(`/api/user/authenticate/${userData.username}/${userData.password}?api_key=${APIKEY}`, options)
+    return fetch(`/api/user/authenticate/${user}/${pwd}?api_key=${APIKEY}`, options)
       .then(response => response.json())
     .then(json => dispatch(setLoginDetails(json)))
   }
 }
+
+export const userChange = (user='') => ({
+    type: USER_CHANGE,
+    payload: user
+  });
+
+export const pwdChange = (pwd='') => ({
+    type: PWD_CHANGE,
+    payload: pwd
+  });
