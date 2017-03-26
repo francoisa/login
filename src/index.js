@@ -31,7 +31,7 @@ class App extends Component {
         placeholder="password"
         onChange={ (e) => this.props.onPwdChange(e.target.value) }/>
       <br/>
-      <Button onClick={() => this.props.onLogin(this.props.user, this.props.pwd) }>Log in</Button>
+      <Button onClick={() => this.props.onLogin() }>Log in</Button>
     </div>)
   }
 
@@ -40,14 +40,13 @@ class App extends Component {
       <Grid>
         <DevTools store={store}  />
         <Row>
-          <Col xs={12} md={4}>
-            <h3>Please log in...!</h3>
-          </Col>
-          <Col xs={4} md={4}>
-            {this.renderInput()}
-          </Col>
           <Col xs={4} md={4}>
             {this.renderWelcomeMessage()}
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={4} md={4}>
+            {this.renderInput()}
           </Col>
         </Row>
       </Grid>
@@ -81,7 +80,7 @@ const AppBox = createClass({
           msg={user.message}
           onUserChange={ (user) => this.props.dispatch(userChange(user)) }
           onPwdChange={ (pwd) => this.props.dispatch(pwdChange(pwd)) }
-          onLogin={ () => this.props.dispatch(login()) }
+          onLogin={ () => this.props.dispatch(login(loginInput.user, loginInput.pwd)) }
         />
     );
   }

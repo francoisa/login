@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch'
 export const LOGIN_USER = 'LOGIN_USER'
 
-export function setLoginDetails(json){
+export function setLoginDetails(json) {
   const loginData = {
     type: LOGIN_USER,
     loginResponse: json,

@@ -48,7 +48,7 @@ function buildUpRestAPI(rest) {
       const sel_user = 'SELECT username, email, password, salt FROM users WHERE username = ?';
       client.execute(sel_user, [id], { prepare: true }, function(err, result) {
         assert.ifError(err);
-        var user = {result: "ERROR", code: "INVALID_USER"};
+        var user = {result: "ERROR", code: "INVALID_USER", message: "user: " + id + " was not found in the " + keyspace + ".users  table"};
         result.rows.map(function(u) {
           var password = sha1(pwd + u.salt);
           if (password === u.password.toString("hex")) {

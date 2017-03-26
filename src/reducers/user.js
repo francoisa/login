@@ -2,7 +2,7 @@ import {
   LOGIN_USER
 } from '../actions/user';
 
-export const user = (state = {message: "",  username: ""}, action) =>
+export const user = (state = {message: "Please log in ...",  username: ""}, action) =>
 {
 
   switch(action.type) {
@@ -21,11 +21,7 @@ export const user = (state = {message: "",  username: ""}, action) =>
             timestamp: action.timestamp
           }
       }
-      return {...state,
-        message: "",
-        username: "",
-        timestamp: action.timestamp
-      }
+      return state;
       default:
         return state
   }
