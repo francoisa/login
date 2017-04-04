@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Row, Col, Button } from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 import { store } from './store';
-import { login } from './actions/user'
+import { login, setLoginDetails } from './actions/user'
 import { Provider, connect } from 'react-redux';
 import DevTools from './devtools';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -64,6 +64,13 @@ const { createClass, PropTypes } = React;
 const AppBox = createClass({
   conextTypes: {
     store: PropTypes.object
+  },
+  componentWillMount() {
+    const { dispatch } = this.props;
+    let storedSessionLogin = sessionStorage.getItem('login');
+    if (storedSessionLogin) {
+      dispatch(setLoginDetails(JSON.parse(storedSessionLogin).loginResponse));
+    }
   },
   componentDidMount() {
     this.unsubscribe = store.subscribe( () => this.forceUpdate() )
