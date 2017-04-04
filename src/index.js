@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Button, FormControl } from 'react-bootstrap';
+import { Grid, Row, Col, Button } from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 import { store } from './store';
 import { login } from './actions/user'
-import { userChange, pwdChange } from './actions/login_input'
 import { Provider, connect } from 'react-redux';
 import DevTools from './devtools';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -18,20 +17,21 @@ class App extends Component {
   }
 
   renderInput() {
+    let user, pwd;
     return (<div>
-      <FormControl
+      <input
         type="text"
-        value={ this.props.user }
-        placeholder="username"
-        onChange={ (e) => this.props.onUserChange(e.target.value) }/>
+        className="form-control"
+        ref={ node => user = node }
+        placeholder="username"/>
       <br/>
-      <FormControl
+      <input
         type="password"
-        value={ this.props.pwd }
-        placeholder="password"
-        onChange={ (e) => this.props.onPwdChange(e.target.value) }/>
+        className="form-control"
+        ref={ node => pwd = node }
+        placeholder="password"/>
       <br/>
-      <Button onClick={() => this.props.onLogin() }>Log in</Button>
+      <Button onClick={() => this.props.onLogin(user.value, pwd.value) }>Log in</Button>
     </div>)
   }
 
@@ -72,15 +72,11 @@ const AppBox = createClass({
     this.unsubscribe();
   },
   render() {
-    const { user, loginInput } = store.getState();
+    const { user } = store.getState();
     return (
         <App
-          user={loginInput.user}
-          pwd={loginInput.pwd}
           msg={user.message}
-          onUserChange={ (user) => this.props.dispatch(userChange(user)) }
-          onPwdChange={ (pwd) => this.props.dispatch(pwdChange(pwd)) }
-          onLogin={ () => this.props.dispatch(login(loginInput.user, loginInput.pwd)) }
+          onLogin={ (u, p) => this.props.dispatch(login(u, p)) }
         />
     );
   }
